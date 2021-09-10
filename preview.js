@@ -1,5 +1,6 @@
+const nodeChildrenLimit = 100;
+
 const app = new Vue({
-    childrenLimit: 100,
 
     el: '#app',
     vuetify: new Vuetify({
@@ -174,16 +175,20 @@ function getChildren(node) {
         return output;
     }
 
-    const limit = app.childrenLimit;
+    const limit = nodeChildrenLimit;
     if (count > limit) {
+        output.push({
+            id: '_' + Math.random(),
+            name: `* 子节点过多(${count}个), 只显示前 ${nodeChildrenLimit} 个. *`,
+            active:false
+        });
         count = limit;
-        console.warn(`子节点过多( ${count} ), 目前只显示前 ${limit} 个.`)
     }
 
     for (let i = 0; i < count; i++) {
         const child = children[i];
         const subChildren = getChildren(child)
-        const data = { id: child._id, name: child.name, active: child.activeInHierarchy, children };
+        const data = { id: child._id, name: child.name, active: child.activeInHierarchy, children: subChildren };
         output.push(data);
     }
 

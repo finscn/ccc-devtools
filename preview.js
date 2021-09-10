@@ -1,4 +1,6 @@
 const app = new Vue({
+    childrenLimit: 100,
+
     el: '#app',
     vuetify: new Vuetify({
         theme: { dark: true }
@@ -165,10 +167,27 @@ const app = new Vue({
 });
 
 function getChildren(node) {
-    return node.children.map(child => {
-        let children = (child.children && child.children.length > 0) ? getChildren(child) : [];
-        return { id: child._id, name: child.name, active: child.activeInHierarchy, children };
-    });
+    const output = [];
+    const children = node.children;
+    let count = children ? children.length : 0;
+    if (count <= 0) {
+        return output;
+    }
+
+    const limit = app.childrenLimit;
+    if (count > limit) {
+        count = limit;
+        console.warn(`子节点过多( ${count} ), 目前只显示前 ${limit} 个.`)
+    }
+
+    for (let i = 0; i < count; i++) {
+        const child = children[i];
+        const subChildren = getChildren(child)
+        const data = { id: child._id, name: child.name, active: child.activeInHierarchy, children };
+        output.push(data);
+    }
+
+    return output;
 }
 
 function getNodeById(id) {

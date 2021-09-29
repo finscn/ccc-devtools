@@ -215,9 +215,12 @@
 
         function updateResolution () {
             var size = isFullScreen() ? document.documentElement.getBoundingClientRect() : getEmulatedScreenSize();
+
             var gameDiv = document.getElementById('GameDiv');
-            gameDiv.style.width = size.width + 'px';
-            gameDiv.style.height = size.height + 'px';
+            const border = 1;
+            gameDiv.style.borderWidth = border + 'px'
+            gameDiv.style.width = size.width + border * 2 + 'px';
+            gameDiv.style.height = size.height + border * 2 + 'px';
 
             cc.view.setCanvasSize(size.width, size.height);
         }

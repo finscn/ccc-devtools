@@ -3,7 +3,9 @@
 
     // init device resolutions
     const devices = [
-        { name: 'My Custom', width: 900, height: 600,  ratio: 2     },
+        { name: '9:6 横屏', width: 900, height: 600,  ratio: 2     },
+        { name: '10:22 长屏', width: 330, height: 726,  ratio: 2     },
+        { name: '16:9 宽屏', width: 900, height: 500,  ratio: 2     },
         { name: 'Apple iPhone 5',       width: 320,  height: 568,  ratio: 2     },
         { name: 'Apple iPhone 6',       width: 375,  height: 667,  ratio: 2     },
         { name: 'Apple iPhone 6 Plus',  width: 414,  height: 736,  ratio: 3     },
